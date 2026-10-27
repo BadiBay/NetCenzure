@@ -1,0 +1,15 @@
+services:
+  yandex-music-bot:
+    build: .
+    container_name: yandex_music_tg_bot
+    restart: always
+    network_mode: "host"
+    env_file:
+      - .env
+    environment:
+      - TZ=Europe/Moscow
+      # Используем TG_PROXY вместо глобальных HTTP_PROXY/HTTPS_PROXY,
+      # чтобы прокси применялся ТОЛЬКО к Telegram API, а Яндекс Музыка и YouTube шли напрямую!
+      - TG_PROXY=socks5://r2qwdv:jP1Mp4@131.108.17.184:9805
+    volumes:
+      - ./data:/app/data
